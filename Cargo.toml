@@ -1,8 +1,17 @@
 [package]
 name = "semver-explain"
-version = "0.1.0"
-edition = "2021"
+description = "CLI tool to understand SemVer requirements by converting them to less-than, greater-than and/or equal-to form."
+repository = "https://github.com/alilleybrinker/semver-explain"
 license = "MIT"
+version = "0.1.0"
+rust-version = "1.56"
+edition = "2021"
+keywords = ["semver", "cli"]
+categories = ["command-line-utilities"]
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+]
 
 [dependencies]
 semver = "1.0"
