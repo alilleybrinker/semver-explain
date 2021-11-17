@@ -85,7 +85,9 @@ fn explain_less_eq(c: &Comparator) {
 
 fn explain_tilde(c: &Comparator) {
     match (c.major, c.minor, c.patch) {
-        (maj, Some(min), Some(pat)) => println!(">={}.{}.{}, <{}.{}.0", maj, min, pat, maj, bump(min)),
+        (maj, Some(min), Some(pat)) => {
+            println!(">={}.{}.{}, <{}.{}.0", maj, min, pat, maj, bump(min))
+        }
         (maj, Some(min), None) => println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min)),
         (maj, None, _) => println!(">={}.0.0, <{}.0.0", maj, bump(maj)),
     }
@@ -93,11 +95,19 @@ fn explain_tilde(c: &Comparator) {
 
 fn explain_caret(c: &Comparator) {
     match (c.major, c.minor, c.patch) {
-        (maj, Some(min), Some(pat)) if maj > 0 => println!(">={}.{}.{}, <{}.0.0", maj, min, pat, bump(maj)),
-        (maj, Some(min), Some(pat)) if maj == 0 && min > 0 => println!(">=0.{}.{}, <0.{}.0", min, pat, bump(min)),
+        (maj, Some(min), Some(pat)) if maj > 0 => {
+            println!(">={}.{}.{}, <{}.0.0", maj, min, pat, bump(maj))
+        }
+        (maj, Some(min), Some(pat)) if maj == 0 && min > 0 => {
+            println!(">=0.{}.{}, <0.{}.0", min, pat, bump(min))
+        }
         (maj, Some(min), Some(pat)) if maj == 0 && min == 0 => println!("=0.0.{}", pat),
-        (maj, Some(min), None) if maj > 0 || min > 0 => println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min)),
-        (maj, Some(min), None) if maj == 0 && min == 0 => println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min)),
+        (maj, Some(min), None) if maj > 0 || min > 0 => {
+            println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min))
+        }
+        (maj, Some(min), None) if maj == 0 && min == 0 => {
+            println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min))
+        }
         (maj, None, _) => println!(">={}.0.0, <{}.0.0", maj, bump(maj)),
         (_maj, Some(_min), Some(..) | None) => {
             eprintln!("error: unrecognized bound {}", c);
@@ -111,7 +121,7 @@ fn explain_wildcard(c: &Comparator) {
         (_maj, Some(_min), Some(_pat)) => {
             eprintln!("error: can't have a wildcard where every version part is specified");
             fail();
-        },
+        }
         (maj, Some(min), None) => println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min)),
         (maj, None, _) => println!(">={}.0.0, <{}.0.0", maj, bump(maj)),
     }
