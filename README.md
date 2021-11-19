@@ -15,5 +15,14 @@ $ semver-explain "5.6.*"
 
 ## Installation
 
-You can install `semver-explain` with `cargo install semver-explain` or by cloning this repository and running `cargo install --path <path to this repository>`.
+```sh
+# To install from Crates.io
+$ cargo install semver-explain
+# To install from source (after cloning or downloading)
+$ cargo install --path "<path to download>"
+```
+
+## License
+
+`semver-explain` is MIT licensed. The full license text can be found in `LICENSE.md`.
 
