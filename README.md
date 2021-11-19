@@ -30,9 +30,32 @@ $ cargo install semver-explain
 $ cargo install --path "<path to download>"
 ```
 
+## How to Use
+
+Just give it a SemVer requirement as a string! The CLI is purposefully simple.
+
+```
+semver-explain 0.2.0
+
+USAGE:
+    semver-explain <VERSION_REQ>
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+ARGS:
+    <VERSION_REQ>    semantic versioning requirement to explain
+```
+
 ## License
 
 `semver-explain` is MIT licensed. The full license text can be found in `LICENSE.md`.
 
+## Thanks
+
+This tool uses the excellent Rust [`semver`][semver] library, without which it would have been much more tedious to build.
+
 [install_rust]: https://www.rust-lang.org/tools/install "Link to Rust installation instructions."
+[semver]: https://crates.io/crates/semver "Link to the semver crate"
 
