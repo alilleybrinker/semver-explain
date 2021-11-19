@@ -15,4 +15,5 @@ include = [
 
 [dependencies]
 semver = "1.0"
+structopt = "0.3"
 

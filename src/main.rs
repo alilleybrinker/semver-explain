@@ -1,29 +1,29 @@
 use semver::{Comparator, Op, VersionReq};
-use std::env::args;
 use std::process::exit;
+use structopt::StructOpt;
 
 fn main() {
-    let mut args = args().skip(1);
+    let opt = Opt::from_args();
 
-    match args.next() {
-        None => {
-            eprintln!("error: missing semver string to explain");
+    let version = match VersionReq::parse(&opt.version_req) {
+        Ok(r) => r,
+        Err(e) => {
+            eprintln!("error: failed to parse version with error '{}'", e);
             fail();
         }
-        Some(raw_version) => {
-            let version = match VersionReq::parse(&raw_version) {
-                Ok(r) => r,
-                Err(e) => {
-                    eprintln!("error: failed to parse version with error '{}'", e);
-                    fail();
-                }
-            };
+    };
 
-            for comparator in &version.comparators {
-                explain_comparator(comparator);
-            }
-        }
+    for comparator in &version.comparators {
+        explain_comparator(comparator);
     }
+}
+
+#[derive(StructOpt, Debug)]
+#[structopt(name = "semver-explain")]
+struct Opt {
+    /// semantic versioning requirement to explain
+    #[structopt(name = "VERSION_REQ")]
+    version_req: String,
 }
 
 fn explain_comparator(c: &Comparator) {
