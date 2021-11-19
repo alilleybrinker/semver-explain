@@ -2,7 +2,7 @@
 
 __Convert SemVer requirements to their most-obvious equivalents.__
 
-`semver-explain` is a CLI tool to explain Semantic Versioning requirements by converting them to a form with only less-than, greater-than and/or equal-to comparators, where the major, minor, and patch versions are all specified. These equivalent bounds are output in SemVer requirement format, to be pasted in wherever SemVer requirements are expected.
+`semver-explain` is a CLI tool to explain Semantic Versioning requirements by converting them to a form with only less-than, greater-than and/or equal-to comparators, where the major, minor, and patch versions are all specified.
 
 The exact interpretation of SemVer requirements' meaning [comes from Cargo][cargo_semver]. In particular, it does not handle [hyphen ranges or x-ranges][node_semver] from the `node-semver` library for JavaScript.
 
