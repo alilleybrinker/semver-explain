@@ -1,0 +1,47 @@
+name: release
+on:
+  release:
+    create:
+
+jobs:
+  build:
+    name: Artifacts for ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        name: [linux-x86_64, windows-x86_64, macos-x86_64]
+        include:
+          - name: linux-x86_64
+            artifact_name: semver-explain
+            asset_name: semver-explain-linux-x86_64
+            os: ubuntu-latest
+          - name: windows-x86_64
+            artifact_name: semver-explain.exe
+            asset_name: semver-explain-windows-x86_64.exe
+            os: windows-latest
+          - name: macos-x86_64
+            artifact_name: semver-explain
+            asset_name: semver-explain-darwin-x86_64
+            os: macos-11
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+
+      - name: Build release
+        run: cargo build --release --locked
+
+      - name: Upload artifacts
+        uses: actions/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ matrix.artifact_name }}
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
