@@ -102,11 +102,15 @@ fn explain_caret(c: &Comparator) {
             println!(">=0.{}.{}, <0.{}.0", min, pat, bump(min))
         }
         (maj, Some(min), Some(pat)) if maj == 0 && min == 0 => println!("=0.0.{}", pat),
-        (maj, Some(min), None) if maj > 0 || min > 0 => {
-            println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min))
+
+        (maj, Some(min), None) if maj > 0 => {
+            println!(">={}.{}.0, <{}.0.0", maj, min, bump(maj))
+        }
+        (maj, Some(min), None) if maj == 0 && min > 0 => {
+            println!(">=0.{}.0, <0.{}.0", min, bump(min))
         }
         (maj, Some(min), None) if maj == 0 && min == 0 => {
-            println!(">={}.{}.0, <{}.{}.0", maj, min, maj, bump(min))
+            println!("=0.0.0")
         }
         (maj, None, _) => println!(">={}.0.0, <{}.0.0", maj, bump(maj)),
         (_maj, Some(_min), Some(..) | None) => {
